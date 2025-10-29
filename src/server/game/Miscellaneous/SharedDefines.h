@@ -202,7 +202,7 @@ enum Expansions
     MAX_EXPANSIONS
 };
 
-static uint8 const CURRENT_EXPANSION = EXPANSION_LEGION;
+static uint8 const CURRENT_EXPANSION = EXPANSION_WARLORDS_OF_DRAENOR;
 static uint16 const START_DK_LEVEL = 55;
 static uint16 const START_DH_LEVEL = 98;
 
