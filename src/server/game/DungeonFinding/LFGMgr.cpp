@@ -91,16 +91,18 @@ void LFGMgr::_SaveToDB(ObjectGuid guid, uint32 db_guid)
     if (!guid.IsParty())
         return;
 
+    SQLTransaction trans = CharacterDatabase.BeginTransaction();
     uint32 queueId = GetQueueId(guid);
     PreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(CHAR_DEL_LFG_DATA);
     stmt->setUInt32(0, db_guid);
-    CharacterDatabase.Execute(stmt);
+    trans->Append(stmt);
 
     stmt = CharacterDatabase.GetPreparedStatement(CHAR_INS_LFG_DATA);
     stmt->setUInt32(0, db_guid);
     stmt->setUInt32(1, GetDungeon(guid));
     stmt->setUInt32(2, GetState(guid, queueId));
-    CharacterDatabase.Execute(stmt);
+    trans->Append(stmt);
+    CharacterDatabase.CommitTransaction(trans);
 }
 
 void LFGMgr::LoadRewards()
@@ -294,8 +296,8 @@ void LFGMgr::LoadLFGDungeons(bool reload /* = false */)
                 dungeon.z = at->target_Z;
                 dungeon.o = at->target_Orientation;
             }
-            else
-                TC_LOG_ERROR(LOG_FILTER_LFG, "LFGMgr::LoadLFGDungeons: Failed to load teleport positions for dungeon %s, cant find areatrigger for map %u. dungeonId %u", dungeon.name.c_str(), dungeon.map, dungeon.id);
+            //else
+                //TC_LOG_ERROR(LOG_FILTER_LFG, "LFGMgr::LoadLFGDungeons: Failed to load teleport positions for dungeon %s, cant find areatrigger for map %u. dungeonId %u", dungeon.name.c_str(), dungeon.map, dungeon.id);
         }
 
         if (dungeon.type != LFG_TYPE_RANDOM)

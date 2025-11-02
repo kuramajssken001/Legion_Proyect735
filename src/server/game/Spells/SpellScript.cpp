@@ -24,7 +24,7 @@ bool _SpellScript::_Validate(SpellInfo const* entry)
 {
     if (!Validate(entry))
     {
-        TC_LOG_ERROR(LOG_FILTER_TSCR, "Spell `%u` did not pass Validate() function of script `%s` - script will be not added to the spell", entry->Id, m_scriptName->c_str());
+        //TC_LOG_ERROR(LOG_FILTER_TSCR, "Spell `%u` did not pass Validate() function of script `%s` - script will be not added to the spell", entry->Id, m_scriptName->c_str());
         return false;
     }
     return true;
@@ -389,7 +389,7 @@ void SpellScript::ObjectJumpTargetHandler::Call(SpellScript* spellScript, int32 
 
 bool SpellScript::_Validate(SpellInfo const* entry)
 {
-    for (auto& itr : OnEffectLaunch)
+   /* for (auto& itr : OnEffectLaunch)
     {
         if (!itr.GetAffectedEffectsMask(entry))
             TC_LOG_ERROR(LOG_FILTER_TSCR, "Spell `%u` Effect `%s` of script `%s` did not match dbc effect data - handler bound to hook `OnEffectLaunch` of SpellScript won't be executed", entry->Id, itr.ToString().c_str(), m_scriptName->c_str());
@@ -429,7 +429,7 @@ bool SpellScript::_Validate(SpellInfo const* entry)
     {
         if (!itr.GetAffectedEffectsMask(entry))
             TC_LOG_ERROR(LOG_FILTER_TSCR, "Spell `%u` Effect `%s` of script `%s` did not match dbc effect data - handler bound to hook `OnEffectSuccessfulDispel` of SpellScript won't be executed", entry->Id, itr.ToString().c_str(), m_scriptName->c_str());
-    }
+    }*/
 
     return _SpellScript::_Validate(entry);
 }
@@ -810,7 +810,7 @@ SpellValue const* SpellScript::GetSpellValue()
 
 bool AuraScript::_Validate(SpellInfo const* entry)
 {
-    for (auto itr = DoCheckTargetsList.begin(); itr != DoCheckTargetsList.end(); ++itr)
+    /*for (auto itr = DoCheckTargetsList.begin(); itr != DoCheckTargetsList.end(); ++itr)
     {
         if (!entry->HasDynAuraEffect())
             TC_LOG_ERROR(LOG_FILTER_TSCR, "Spell `%u` of script `%s` does not have area aura effect - handler bound to hook `DoCheckTargetsList` of AuraScript won't be executed", entry->Id, m_scriptName->c_str());
@@ -942,7 +942,7 @@ bool AuraScript::_Validate(SpellInfo const* entry)
 
 	for (auto itr = AfterProc.begin(); itr != AfterProc.end(); ++itr)
 		if (!entry->HasEffect(SPELL_EFFECT_APPLY_AURA) && !entry->HasAreaAuraEffect())
-			TC_LOG_ERROR(LOG_FILTER_TSCR, "Spell `%u` of script `%s` does not have apply aura effect - handler bound to hook `AfterProc` of AuraScript won't be executed", entry->Id, m_scriptName->c_str());
+			TC_LOG_ERROR(LOG_FILTER_TSCR, "Spell `%u` of script `%s` does not have apply aura effect - handler bound to hook `AfterProc` of AuraScript won't be executed", entry->Id, m_scriptName->c_str());*/
 
     return _SpellScript::_Validate(entry);
 }
